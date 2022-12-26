@@ -58,7 +58,8 @@ textarea {
     padding: 1rem;
     transition: all 300ms ease;
     height: 4.5rem;
-    background-color :rgb(244, 34, 83);
+    background-color :var(--first);
+    color: #fff;
     font-size: 1.4rem;
     &:hover {
         border-color: var(--titles);
@@ -87,7 +88,8 @@ textarea {
 .Btn {
     @extend .ButtonReset;
     cursor: pointer;
-    padding: 1rem;
+    padding: 10px;
+    // padding: .6rem;
     width: auto;
     height: auto;
     min-width: 3.6rem;
@@ -95,12 +97,14 @@ textarea {
     align-items: center;
     justify-content: center;
     transition: all 300ms ease;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     // background: var(--bg-back);
     // background:#ff7204;;
     margin: 0 0.4rem;
     color: #fefffc;
-    @include border-radius(0.8rem);
+    // @include border-radius(0.8rem);
+    transition: all .35s ease;
+    border-radius: 15px;
     // border: 1px solid #ff7204;
     &:hover {
         // background:  #ff7204;
@@ -253,7 +257,8 @@ textarea {
     border-radius: 0.7rem;
     box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.2);
     display: grid;
-    margin: 1rem 1rem 0rem 1rem;
+    // margin: 1rem 1rem 0rem 1rem;
+    margin: 6rem 1rem 0rem 1rem;
     grid-template: {
         rows: 6rem calc(100vh - 20.7rem) 5.7rem;
         columns: 6rem auto;
@@ -379,11 +384,11 @@ textarea {
                 opacity: 1;
                 margin-left: 6rem;
             }
-            &:hover {
-                opacity: 0.8;
-                background: rgba(0, 0, 0, 0.1);
-                border-radius: 1rem;
-            }
+            // &:hover {
+            //     opacity: 0.8;
+            //     background: rgba(0, 0, 0, 0.1);
+            //     border-radius: 1rem;
+            // }
             &:focus {
                 outline: 0 none;
             }
@@ -403,7 +408,7 @@ textarea {
                 background-image: url("../images/icon-help.svg");
                 background-repeat: no-repeat;
                 width: 6.0rem;
-                height: 2.4rem;
+                height: 2.6rem;
                 background-position: 0.6rem 0.5rem;
                 background-size: 5.3rem;
                 border-color: #f2f2f2;
@@ -412,7 +417,15 @@ textarea {
                 grid-row: -3/ -1;
                 margin-top: 2rem;
                 margin-right: 4rem;
-                // background-repeat: space;
+        
+                // &:hover {
+                //     opacity: .8;
+                //     background: rgba(0, 0, 0, 0.1);
+                //     // border-radius: 1rem;
+                // }
+                &:focus {
+                    outline: 0 none;
+                }
                 &.Active {
                     box-shadow: 0 0 1rem #fff;
                 }
@@ -630,6 +643,10 @@ textarea {
             height: calc(50vh - 4rem);
             margin-top: calc(50vh - 4rem);
         }
+        &.fade-show {
+            opacity: 1;
+            transition: opacity 0.3s ease-in;
+        }
         .ConversationBubble {
             
             margin-bottom: 0.8rem;
@@ -643,14 +660,16 @@ textarea {
             // grid-template-columns: 4.5rem auto;
             // margin-bottom: .8rem;
             .Bubble {
-                background-color: var(--bubble-bg);
+                // background-color: #d8d7db;
+                background-color: #ebebeb;
                 padding: 1.2rem 1.6rem;
                 font-size: 1.4rem;
-                color: #6b6a6f;
+                color: #6B6A6f;
                 word-break: break-word;
-                border-radius: 0.5rem;
+                border-radius: 0.9rem;
                 margin-left: 0.8rem;
                 max-width: calc(100% - 3.8rem);
+                margin-top: .5rem;
                 ul,
                 ol {
                     margin: 1.6rem;
@@ -910,7 +929,7 @@ textarea {
                 background: transparent;
                 padding: 0 1.8rem;
                 border: 0.1rem solid var(--gray-dark); // border-bottom: 1px solid #333;
-                color: var(--gray);
+                color: white;
                 resize: none;
                 font-weight: 300;
                 width: 100%;
@@ -923,19 +942,19 @@ textarea {
                     transition: background-color 5000s ease-in-out 0s;
                 }
                 &::-webkit-input-placeholder {
-                    color: var(--gray-light);
+                    color: white;
                     font-weight: 300;
                 }
                 &::-moz-placeholder {
-                    color: var(--gray-light);
+                    color: white;
                     font-weight: 300;
                 }
                 &:-ms-input-placeholder {
-                    color: var(--gray-light);
+                    color: white;
                     font-weight: 300;
                 }
                 &:-moz-placeholder {
-                    color: var(--gray-light);
+                    color: white;
                     font-weight: 300;
                 }
                 &.Error {
@@ -1039,13 +1058,16 @@ textarea {
         .ContainerForm {
             box-sizing: border-box;
             background: white;
-            border-radius: 0.4rem;
-            position: relative;
+            border-radius: 0.9rem;
+            position:absolute;
+            bottom: 16rem;
+            right: 3px;
             z-index: 2;
             border-top: 0.2rem solid var(--first);
             box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
             margin-left: 0.8rem;
             width: 100%;
+            
             &.ContainerValoracion {
                 padding-bottom: 1.6rem;
                 form {
@@ -1082,7 +1104,6 @@ textarea {
                     background:  #f42534;
                     p {
                         margin: 0;
-                        // width: 20rem;
                         color: white;
                         font-size: 1.4rem;
                         font-weight: 500;
@@ -1187,12 +1208,27 @@ textarea {
                         }
                     }
                     legend {
-                        color: var(--bubble-bg-message-text);
+                        color: var(--first);
                         font-weight: 700;
                         text-transform: capitalize;
                         font-size: 1.2rem;
                         transition: all 300ms ease;
                     }
+                    .link{
+                        color: var(--first);
+                        font-weight: 700;
+                        text-transform: capitalize;
+                        font-size: 1.2rem;
+                        transition: all 300ms ease;
+                    }
+                        // a{
+                        //     color: var(--first);
+                        //     font-weight: 700;
+                        //     text-transform: capitalize;
+                        //     font-size: 1.2rem;
+                        //     transition: all 300ms ease;
+                        // }
+                    
                     .Switch {
                         position: relative;
                         width: 100%;
@@ -1249,8 +1285,9 @@ textarea {
                         height: 3.6rem;
                         background: transparent;
                         padding: 0 1.8rem;
-                        border: 1px solid var(--border-color); // border-bottom: 1px solid #333;
+                        border: 1px solid var(--first); // border-bottom: 1px solid #333;
                         color: var(--gray);
+                        // color: var(--first);
                         resize: initial;
                         font-weight: 300;
                         font-size: 1.2rem;
@@ -1673,7 +1710,7 @@ textarea {
         transition: all 300ms ease;
         opacity: 1;
         // background: var(--bg-back);
-        background: rgb(244, 34, 83);
+        background: var(--first);
         display: flex;
         border-top: 1px solid var(--border-color);
        
@@ -1694,7 +1731,7 @@ textarea {
             width: 100%;
             color: white;
             &::placeholder {
-                color: var(--border-color);
+                color: white;
             }
         }
         .example {
@@ -1732,8 +1769,8 @@ textarea {
                 width: 2.7rem;
                 height: 2.7rem;
                 display: block;
+                // font-weight: bold;
               
-                // opacity: 0.7;
                 transition: all 0.3s ease-out;
                 animation: inAssistant 0.4s linear;
                 &:hover {
@@ -1742,22 +1779,19 @@ textarea {
             }
             .IconEmoji {
                 background-image: url("../images/icon-emoji.svg");
+                width: 29px;
+                height: 29px;
             }
             .IconVoice {
                 background-image: url("../images/icon-microphone.svg");
-                height: 1.7rem;
+                width: 28px;
+                height: 28px;
             }
             .IconPlane {
                 background-image: url("../images/icon-send-hover.svg");
-                // background-color: #ff7204;
-                // border-radius: 50%;
-                // height: 49px;
-                // width: 53px;
             
             }
             
-
-
 
             .IconHelp {
                 background-image: url("../images/icon-help-grey.svg");
@@ -1878,18 +1912,18 @@ textarea {
             display: none;
         }
     }
-    .LogoCognitiva {
-        display: block;
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-image: url("../images/logoHH.png");
-        position: absolute;
-        width: 8rem;
-        height: 2rem;
-        bottom: 5.8rem;
-        left: 1.5rem;
-    }
+    // .LogoCognitiva {
+    //     display: block;
+    //     background-position: 50% 50%;
+    //     background-repeat: no-repeat;
+    //     background-size: contain;
+    //     background-image: url("../images/logoHH.png");
+    //     position: absolute;
+    //     width: 8rem;
+    //     height: 2rem;
+    //     bottom: 5.8rem;
+    //     left: 1.5rem;
+    // }
 }
 
 .SpinnerHolder {
@@ -1941,4 +1975,9 @@ textarea {
    
    
     
+}
+
+.fade-show {
+    background-image: linear-gradient(-180deg, rgba(255, 255, 255, 0) 50%, grey 100%);
+    background-color: #d9534f;
 }

@@ -25,17 +25,22 @@ export default class InputEmoji extends Component {
   }
 
   selectEmoji(emoji) {
-    const { start, end, mainCss, inputStates, openEmoji,closeEmoji } = this.props,
-      emojiIcon = emoji.native,
-      input = document.getElementsByClassName(mainCss.InputUser)[0],
-      value = input.value,
-      startStr = value.substring(0, start),
-      endStr = value.substring(start, value.length);
+    const { start, end, mainCss, inputStates, openEmoji,closeEmoji } = this.props;
+      let emojiIcon = emoji.native;
+      let input = document.getElementsByClassName(mainCss.InputUserBtn)[0];
+      let input_icon = document.getElementsByClassName(mainCss.Icon)[0];
+      let value = input.value;
+      let startStr = value.substring(0, start);
+      let endStr = value.substring(start, value.length);
     if (start === end) {
       input.value = startStr + emojiIcon + endStr;
+      input_icon.value = startStr + emojiIcon + endStr;
+      console.log(input.value);
     } else {
       const endStrB = value.substring(end, value.length);
       input.value = startStr + emojiIcon + endStrB;
+      input_icon.value = startStr + emojiIcon + endStr;
+      console.log(input.value);
     }
     if(!inputStates.get("openEmoji")){
       closeEmoji();

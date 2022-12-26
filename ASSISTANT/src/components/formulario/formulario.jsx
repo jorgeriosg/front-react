@@ -274,7 +274,7 @@ export default class Formulario extends Component {
                 <FormInput
                   type={map.get("type")}
                   name={map.get("name")}
-                  placeholder={map.get("placeholder")}
+                  placeholder= {map.get("placeholder")}
                   autocomplete={map.get("autocomplete")}
                   validateFunc={this.validate}
                   validate={map.get("validate")}
@@ -333,7 +333,7 @@ export default class Formulario extends Component {
             >
               Ingresar
             </button>
-            <link rel="stylesheet" href="" />
+            {/* <p><a className="link" href="https://webprivado.coopeuch.cl/#/">Cambia tu clave aquí</a></p> */}
           </form>
           <FormError error={error} mainCss={mainCss} />
         </div>

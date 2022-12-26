@@ -5,7 +5,7 @@ import ConversationMsg from "./conversation-msg";
 import ConversationButtons from "./conversation-buttons";
 import ConversationSelects from "./conversation-selects";
 
-import Valoracion from "../valoracion/valoracion";
+// import Valoracion from "../valoracion/valoracion";
 import Formulario from "../formulario/formulario";
 import FormValoracion from "../formValoracion/FormValoracion";
 
@@ -213,6 +213,7 @@ export default class Conversations extends Component {
       const conversation = map,
         enabled = conversation.get("enabled");
       let retorno = [];
+      console.log("fill",map)
       if (enabled !== undefined && enabled) {
         const buttons = conversation.get("buttons"),
           selects = conversation.get("selects"),
@@ -358,26 +359,26 @@ export default class Conversations extends Component {
                     disabledInput
                   } = this.props;
                   // debugger
-                  retorno.push(
-                    <Valoracion
-                      key={j}
-                      generalStates={generalStates}
-                      setErrorValoracion={setErrorValoracion}
-                      sendValoracion={sendValoracion}
-                      valoracionStates={valoracionStates}
-                      setStar={setStar}
-                      setOverStar={setOverStar}
-                      setCommentValoracion={setCommentValoracion}
-                      setServicioValoracion={setServicioValoracion}
-                      setPudoResolverValoracion={setPudoResolverValoracion}
-                      updateConversationButton={updateConversationButton}
-                      mainCss={mainCss}
-                      withStars={withStars}
-                      disabledHelp={disabledHelp}
-                      disabledInput={disabledInput}
-                      conversationsStates={conversationsStates}
-                    />
-                  );
+                  // retorno.push(
+                  //   <Valoracion
+                  //     key={j}
+                  //     generalStates={generalStates}
+                  //     setErrorValoracion={setErrorValoracion}
+                  //     sendValoracion={sendValoracion}
+                  //     valoracionStates={valoracionStates}
+                  //     setStar={setStar}
+                  //     setOverStar={setOverStar}
+                  //     setCommentValoracion={setCommentValoracion}
+                  //     setServicioValoracion={setServicioValoracion}
+                  //     setPudoResolverValoracion={setPudoResolverValoracion}
+                  //     updateConversationButton={updateConversationButton}
+                  //     mainCss={mainCss}
+                  //     withStars={withStars}
+                  //     disabledHelp={disabledHelp}
+                  //     disabledInput={disabledInput}
+                  //     conversationsStates={conversationsStates}
+                  //   />
+                  // );
                 }
                 break;
               case "form":
@@ -446,10 +447,18 @@ export default class Conversations extends Component {
   }
 
   render() {
-    const { ayudaStates, inputStates, conversationsStates, customParamsStates, mainCss } = this.props;
+    const { ayudaStates, inputStates, conversationsStates, customParamsStates, mainCss ,generalStates} = this.props;
+    
     const colorHeader = customParamsStates.getIn(["customParams", "colorHeader"]);
     let css = ayudaStates.get("open") ? " active" : "",
       cssHolder = inputStates.get("enabled") ? "" : " holder";
+    let cssFade = "";
+    if (generalStates.liftUp === "form" || generalStates.liftUp === "valoracion") {
+      cssFade = "fade-show";
+    }else{
+      cssFade = "";
+    }
+
     return (
       <IsFetching
         isFetching={conversationsStates.get("isFetching")}
@@ -458,7 +467,7 @@ export default class Conversations extends Component {
         <section
           // onScroll={this.handleScroll}
           className={
-            mainCss.ConversationHolder + " " + css + cssHolder
+            mainCss.ConversationHolder + " " + css + cssHolder + " " + cssFade
           }
           data-conversation=""
           ref={this.test}
@@ -469,3 +478,5 @@ export default class Conversations extends Component {
     );
   }
 }
+
+//  agregar fade show si es form o

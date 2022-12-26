@@ -136,7 +136,7 @@ export function getCustomParams() {
         const request = axios({
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             url: APIURL + "/customize_param",
             data: { id_cliente: "1" }
@@ -525,13 +525,13 @@ export function updateConversationCalendar(data) {
 
 function updateConversationError(data) {
     let conv = {};
-    conv.msg = [data];
+    conv.msg = data.msg;
     conv.enabled = true;
     conv.from = "from";
     console.log("531",conv)
-    // if (data.exitoFormulario) {
-    //     conv.exito_formulario = data.exitoFormulario;
-    // }
+    if (data.exitoFormulario) {
+        conv.exito_formulario = data.exitoFormulario;
+    }
     return { type: "PUSH_CONVERSATIONS_ERROR", data: conv };
 }
 export function updateConversation(data) {
@@ -541,7 +541,7 @@ export function updateConversation(data) {
         const request = axios({
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json "
             },
             url: APIURL + "/message",
             data: {
@@ -817,7 +817,7 @@ export function updateConversation(data) {
 }
 
 function messageResponse(dispatch, data) {
-    // console.log('messageResponse:: ', data);
+    console.log('messageResponse:: ', data);
     if (data.liftUp !== undefined) {
         //Si trae para levantar modales
         switch (data.liftUp) {
@@ -843,7 +843,7 @@ function messageResponse(dispatch, data) {
                 break;
         }
     } else {
-        // console.log('data.general ', data)
+        console.log('data.general888 ', data)
         if (data.general !== undefined) {
             dispatch(setGeneral(data.general));
             if (data.general.region !== undefined) {
@@ -1276,7 +1276,7 @@ export function updateConversationButton(data) {
                 const request = axios({
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json "
                     },
                     url: APIURL + "/message",
                     data: {
@@ -1294,7 +1294,7 @@ export function updateConversationButton(data) {
                             console.log('RESPONSE MENSAJE 3::', item);
                             item.send = "from";
                             item.enabled = true;
-                            dispatch(setNodoId(item.msg[item.msg.length - 1]));
+                            // dispatch(setNodoId(item.msg[item.msg.length - 1]));
                             messageResponse(dispatch, item);
                         } else {
                             dispatch(updateConversationError(response.statusText));
@@ -1429,7 +1429,7 @@ export function setErrorValoracion(data) {
 }
 export function sendValoracion(data, general) {
     return function action(dispatch) {
-        dispatch({ type: "GET_CONVERSATIONS_START" });
+        // dispatch({ type: "GET_CONVERSATIONS_START" });
         const request = axios({
             method: "POST",
             headers: {
@@ -1444,17 +1444,30 @@ export function sendValoracion(data, general) {
                     response.status === 200 &&
                     response.data.estado.codigoEstado === 200
                 ) {
+                    console.log("sendvaloracion",response.data)
                     let item = {};
-                    item.send = "from";
+                    item.send = "form";
                     item.enabled = true;
                     item.general = general;
-                    item.msg = ['exito_formulario'];
-                    dispatch(updateConversation(item));
-                    // dispatch({ type: "GET_CONVERSATIONS_END" });
-
+                    item.yaValoro = true;
+                    item.yaCv= false;
+                    item.yaContacto = false;
+                    item.yaEvalucion= false;
+                    item.yaSolicito= false;
+                    item.yaSuma= false;
+                    item.yaTC= false;
+                    item.yaTransfirio= false;
+                    item.msg =['Muchas gracias por tu evaluación, nos ayuda a seguir mejorando.'];
+                    dispatch(pushConversation(item));
+                    dispatch({ type: "GET_CONVERSATIONS_END" });
+                    // dispatch(updateConversation(item));
+                    // dispatch({ type: "GET_CONVERSATIONS_START" });
+                   
+                 
                 } else {
                     let msg = ['error_formulario'];
                     dispatch(updateConversationError(msg));
+                    dispatch({ type: "GET_CONVERSATIONS_END" });
                 }
             },
             err => {
@@ -1562,7 +1575,7 @@ export function sendForm(data, url, general) {
         const request = axios({
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             url: url,
             data: data
@@ -1580,7 +1593,7 @@ export function sendForm(data, url, general) {
                     item.token = response.data.respuesta.access_token
                     //updateConversation(item);
                     // messageResponse(dispatch, item);
-                    // dispatch({ type: "DISABLED_FORM" });
+                    dispatch({ type: "DISABLED_FORM" });
                     const request = axios({
                         method: "POST",
                         headers: {
@@ -1603,13 +1616,15 @@ export function sendForm(data, url, general) {
                                 response.data.estado.codigoEstado === 200
                             ) {
                                 dispatch({ type: "SEND_FORM_END" });
-                                let item = response.data;
-                                item.send = "to";
+                                let item = response.data
+                                item.send = "form";
                                 item.enabled = true;
+                                // item.msg = [response.data.general.msg]
                                 // dispatch(setGeneral(data.general));
                                 // dispatch(pushConversation(data));
-                                 updateConversation(item);
-                                dispatch(setNodoId(item.msg[item.msg.length - 1]));
+                                //  updateConversation(item);
+                                console.log("Conversation updated w",item);
+                                // dispatch(setNodoId(item.msg[item.msg.length - 1]));
                                 messageResponse(dispatch, item);
                             } else if (response.data !== undefined) {
                                 // dispatch(updateConversationError(response.data));

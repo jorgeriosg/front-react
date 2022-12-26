@@ -262,7 +262,7 @@ export default class Input extends Component {
           mainCss={mainCss}
         >
           <div className={mainCss.InputUserHolder} noValidate="">
-            
+          
             {this.fillInput()}
             {this.fillAttach()}
             {this.fillEmoji()}
