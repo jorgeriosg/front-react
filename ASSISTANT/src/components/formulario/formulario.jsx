@@ -52,7 +52,7 @@ export default class Formulario extends Component {
   }
 
   validateAll(fields, fieldsDOM) {
-    console.log("validate all",fieldsDOM,fields);
+  
     const { mainCss } = this.props;
     let arr = [];
     for (let i = 0; i < fieldsDOM.length; i++) {
@@ -102,7 +102,7 @@ export default class Formulario extends Component {
       
       // arr = this.validateAll(fields, fieldsDOM),
       url = form.get("url");
-      console.log(fieldsDOM)
+
     let dataForm = {};
     // if (arr.length > 0) {
     //   this.setState({
@@ -168,8 +168,8 @@ export default class Formulario extends Component {
                   name={map.get("name")}
                   placeholder={map.get("placeholder")}
                   autocomplete={map.get("autocomplete")}
-                  // validateFunc={this.validate}
-                  // validate={map.get("validate")}
+                  validateFunc={this.validate}
+                  validate={map.get("validate")}
                   withError={withError}
                   mainCss={mainCss}
                 />
@@ -282,8 +282,11 @@ export default class Formulario extends Component {
                   value={map.get("value")}
                   mainCss={mainCss}
                 />
+                
                 {this.fillError(withError, map.getIn(["validate", "error"]))}
               </fieldset>
+
+              
             );
             break;
         }
@@ -294,27 +297,35 @@ export default class Formulario extends Component {
     }
   }
 
- 
+  // formInput with msg inl
+  
+
   content() {
     const { formularioStates, form, mainCss, animation, disableForm } = this.props,
     
       header = form.get("header"),
       bajada = form.get("bajada"),
       fields = form.get("fields"),
+      icono = form.get("icon"),
+
       error = formularioStates.get("error");
   
     return (
+      
       <div
+      
         className={
-          mainCss.ConversationBubbleForm + " " + animation + " " + mainCss.Send
+          mainCss.ConversationBubbleForm + " " + animation + " " + mainCss.Send + " "
         }
       >
+    
         <img className={mainCss.RoundedImg} src={logo} alt="" />
 
         <div className={mainCss.ContainerForm}>
           <form autoComplete="off">
             <div className={mainCss.closeFormContainer}>
-            <i class="fas fa-lock fa-4x"></i>
+            {/* <i class="fas fa-lock fa-4x"></i> */}
+            <i class={icono}></i>
               <button
                 className={mainCss.closeFormButton}
                 type="button"
@@ -326,6 +337,7 @@ export default class Formulario extends Component {
             {this.fillHeader(header)}
             <p className={mainCss.Red}>{bajada}</p>
             {this.fillContent(fields)}
+            {/* {this.fillContent(fields)} */}
             <button
               type="button"
               onClick={this.sendDataForm}

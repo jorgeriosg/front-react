@@ -447,17 +447,33 @@ export default class Conversations extends Component {
   }
 
   render() {
-    const { ayudaStates, inputStates, conversationsStates, customParamsStates, mainCss ,generalStates} = this.props;
+    const { ayudaStates, inputStates, conversationsStates, customParamsStates, mainCss ,} = this.props;
     
     const colorHeader = customParamsStates.getIn(["customParams", "colorHeader"]);
     let css = ayudaStates.get("open") ? " active" : "",
       cssHolder = inputStates.get("enabled") ? "" : " holder";
-    let cssFade = "";
-    if (generalStates.liftUp === "form" || generalStates.liftUp === "valoracion") {
-      cssFade = "fade-show";
-    }else{
-      cssFade = "";
-    }
+      let retorno = [];
+       let cssFade = ""
+      conversationsStates.get("conversations").map((map, j) => {
+        const conversation = map,
+          form = conversation.get("form"),
+          liftUp = conversation.get("liftUp")
+
+         if(liftUp === "form" || liftUp === "valoracion"){
+          cssFade = mainCss.Show
+        }else{
+          cssFade = ""
+          return cssFade
+        }
+      })
+    // let  cssFade = formularioStates.get("enabled") ? " main_Hide" : "ConversationHolder";
+    // let  cssFade = liftUp.get("enabled") 
+    // if(cssFade === "enabled"){
+    //    cssFade = mainCss.Hide
+    // }else{
+    //  cssFade = ""
+    // }
+
 
     return (
       <IsFetching

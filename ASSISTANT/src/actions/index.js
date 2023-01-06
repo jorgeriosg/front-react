@@ -525,15 +525,29 @@ export function updateConversationCalendar(data) {
 
 function updateConversationError(data) {
     let conv = {};
-    conv.msg = data.msg;
+    console.log(data)
+    conv.msg = data
     conv.enabled = true;
     conv.from = "from";
-    console.log("531",conv)
-    if (data.exitoFormulario) {
-        conv.exito_formulario = data.exitoFormulario;
-    }
+    
+    // if (data.exitoFormulario) {
+    //     conv.exito_formulario = data.exitoFormulario;
+    // }
     return { type: "PUSH_CONVERSATIONS_ERROR", data: conv };
 }
+
+function snapEngage(addContext, addWId) {
+    window.top.postMessage({
+      notifications: [{
+        msg: "",
+        snapEngage: true,
+        context: addContext,
+        widgetId: addWId
+      }]
+    }, "*");
+  }
+
+// updateConversation
 export function updateConversation(data) {
     return function action(dispatch, getState) {
         dispatch(setGeneral(data.general));
@@ -555,14 +569,23 @@ export function updateConversation(data) {
             .then(response => {
                 console.log('message updateConversation:: ', response.data);
                 console.log('message updateConversation MSG:: ', response.data.msg);
+                let msg = "";
+                let addContext = "";
+                let addWid = "";
                 if (
                     response.status === 200 &&
                     response.data.msg !== undefined &&
                     response.data.msg !== null &&
                     response.data.estado.codigoEstado === 200
                 ) {
+                   if(response.snapEngage === true){
+                      msg = ""
+                      addContext = response.contexto;
+                      addWid = response.widgetId;
+
+                     snapEngage(addContext, addWid);
+                   }
                     let item = response.data
-                    
                     item.send = "from";
                     item.enabled = true;
                     // dispatch(setNodoId(item.msg[item.msg.length - 1]));
@@ -571,11 +594,12 @@ export function updateConversation(data) {
                     
                     messageResponse(dispatch, item);
                 } else {
-                    dispatch(updateConversationError(response.statusText));
+                    dispatch(updateConversationError(response.data.msg));
                 }
             })
             .catch(err => {
                 dispatch(updateConversationError(err.response.data.msg));
+
             });
 
         //Respuesta
@@ -832,6 +856,14 @@ function messageResponse(dispatch, data) {
                 dispatch(pushConversation(data));
                 break;
             case "form":
+                if (data.general !== undefined) {
+                    dispatch(setGeneral(data.general));
+                    if (data.general.integracion !== undefined) dispatch(setIntegracion(data.general.integracion));
+                }
+                dispatch({ type: "ENABLED_FORM" });
+                dispatch(pushConversation(data));
+                break;
+                case "formContacto":
                 if (data.general !== undefined) {
                     dispatch(setGeneral(data.general));
                     if (data.general.integracion !== undefined) dispatch(setIntegracion(data.general.integracion));
@@ -1583,14 +1615,30 @@ export function sendForm(data, url, general) {
         return request.then(
             response => {
                 if (response.status === 200 && response.data.estado.codigoEstado === 200) {
-                    let item = {};
-                    //item.msg = [response.data.respuesta];
-                    console.log(response.data.respuesta)
-                    item.msg = ["autenticado"];
-                    item.send = "to";
-                    item.enabled = false;
-                    item.general = general;
-                    item.token = response.data.respuesta.access_token
+                    let item = {}
+                    if (response.data.estado.glosaEstado == 'Formulario') {
+                        item.send = "to";
+                        item.enabled = false;
+                        item.general = general
+                        item.yaContacto= true;
+                        item.yaValoro = false;
+                        item.yaCv= false;
+                        item.yaEvalucion= false;
+                        item.yaSolicito= false;
+                        item.yaSuma= false;
+                        item.yaTC= false;
+                        item.yaTransfirio= false;
+                        item.msg= ['No'];
+                        item.origen=["Sitio Publico"]
+                    }else{
+                        item.msg = ["autenticado"];
+                        item.send = "to";
+                        item.enabled = false;
+                        item.general = general;
+                        item.token = response.data.respuesta.access_token
+                    }
+                    
+                    
                     //updateConversation(item);
                     // messageResponse(dispatch, item);
                     dispatch({ type: "DISABLED_FORM" });
@@ -1631,7 +1679,7 @@ export function sendForm(data, url, general) {
                                 dispatch(updateConversationError(response.data.msg));
                             } else {
                                 dispatch({ type: "SEND_FORM_END" });
-                                dispatch(updateConversationError(response.statusText));
+                                dispatch(updateConversationError(response.data.msg));
                             }
                         })
                         .catch(err => {

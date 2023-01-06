@@ -48,7 +48,6 @@ class FormularioValoracion extends Component {
       auth: "",
     };
     // sendLike(data, general);
-    console.log(data.comentario)
     await sendValoracion(data, general);
   };
 
@@ -58,7 +57,7 @@ class FormularioValoracion extends Component {
       <div className="conversationBubbleForm Send">
         {/* <img className={mainCss.RoundedImg} src={} alt="" /> */}
 
-        <div className="containerForm">
+        <div className="containerForm  modal">
         {/* <div className="mymodal"> */}
           <form autoComplete="off" onSubmit={this.enviarValoracion}>
             <div className="headerForm">

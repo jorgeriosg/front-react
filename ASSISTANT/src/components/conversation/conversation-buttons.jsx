@@ -7,13 +7,14 @@ export default class ConversationButtons extends Component {
     this.sendButtonresponse = this.sendButtonresponse.bind(this);
   }
 
-
   
+
+ 
   sendButtonresponse(event) {
       // let href = "location.href=https://www.google.com"
     const $item = event.target,
       msg = $item.dataset.msg.toString();
-      console.log("msg botones", msg)
+      console.log("msg botones", event)
     const { generalStates } = this.props,
       general = generalStates.toJS(),
       conversation = {
@@ -22,30 +23,32 @@ export default class ConversationButtons extends Component {
         send: "to",
         enabled: false
       };
+     
     this.props.updateConversationButton(conversation);
   }
 
-  sendButtonresponseHref(event) {
-  //  let href = "location.href=https://www.google.com"
-    const $item = event.target,
-      msg = $item.dataset.msg.toString();
-      
-    const { generalStates } = this.props,
-      general = generalStates.toJS(),
-      conversation = {
-        general,
-        msg: [msg],
-        // msg: [href],
-        send: "to",
-        enabled: false
-      };
-    this.props.updateConversationButton(conversation);
-  }
+
+handleButtonClick = (h) => {
+  window.open(h, '_blank');
+}
+
 
 
   render() {
     const { buttons, animation, send, mainCss } = this.props,
       botones = buttons.map((map, i) => {
+        if(map.get("value").includes("http")|| map.get("value").includes("https")){
+        return (
+          <button
+            key={i}
+            className={mainCss.Btn + " " + mainCss.BtnBig}
+            data-msg={map.get("value")}
+            onClick={(e) => this.handleButtonClick(map.get("value"))}
+          >
+            {map.get("title")}
+          </button>
+        )}
+        else (map.get("value"))
         return (
           <button
             key={i}
@@ -56,8 +59,9 @@ export default class ConversationButtons extends Component {
             {map.get("title")}
           </button>
         );
+        
       });
-
+      
     return (
       <div className={mainCss.ConversationBubble+" "+mainCss.Buttons + " " + animation + send}>
         {botones}
@@ -65,6 +69,7 @@ export default class ConversationButtons extends Component {
     );
   }
 }
+    
 
 ConversationButtons.propTypes = {
   buttons: PropTypes.any.isRequired,

@@ -134,7 +134,7 @@ export default class Launcher extends Component {
           </Fragment>
         );
       } else if (responsiveStates.get("responsive") === "desktop") {
-        console.log(responsiveStates.get("responsive"));
+      
         return (
             <div className={mainCss.MainLauncher}>
               <button ref={this.launcher} className={mainCss.LauncherButton + " " + mainCss.Close} onClick={this.closeAssistant}>

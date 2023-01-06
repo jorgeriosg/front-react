@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import BtnHelp from "../help/btn-help";
 import logo from "../../assets/images/logoH.svg";
 
+
 export default class Header extends Component {
   constructor(props) {
     super(props);
@@ -114,7 +115,7 @@ export default class Header extends Component {
           </div>
           {this.fillHelp(this.props.ayuda, this.props.minimized, positionHelp)}
           <button
-            className={mainCss.Btn + " " + mainCss.BtnTransparent}
+            className={mainCss.Btn + " " + mainCss.BtnTransparent }
             onClick={this.props.minimizedAssistant}
           >
             <i

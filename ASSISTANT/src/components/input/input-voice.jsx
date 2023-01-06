@@ -16,10 +16,16 @@ if(isChrome){
     console.log("Not Supported");
   }
   recognition = new window.SpeechRecognition();
-  recognition.continous = false;
+  recognition.continous = true;
   recognition.interimResults = true;
   recognition.lang = "es-CL";
 }
+
+
+
+
+
+// speech recognition mejorar captu
 
 export default class InputVoice extends Component {
   constructor(props) {
@@ -105,7 +111,7 @@ export default class InputVoice extends Component {
 
   submitMessage() {
     // debugger;
-    const inputValue = document.getElementById("inputMessage").value;
+    const inputValue = document.getElementById("inputMessage").value
     document.getElementById("inputMessage").value = "";
     if (inputValue.length > 0) {
       const { generalStates } = this.props,
@@ -143,10 +149,22 @@ export default class InputVoice extends Component {
 
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const transcript = event.results[i][0].transcript;
-        if (event.results[i].isFinal) finalTranscript += transcript + " ";
+        console.log(transcript)
+        if (event.results[i].isFinal) finalTranscript += transcript + "";
         else interimTranscript += transcript;
+        console.log("inter", interimTranscript)
       }
-      transcriptFinal = finalTranscript;
+
+      function containsNumbers(str) {
+        return /[0-9]/.test(str);
+      }
+      
+      if( containsNumbers(finalTranscript)){
+        transcriptFinal = finalTranscript.split(" ").join("");
+      }else{
+        transcriptFinal = finalTranscript;
+      }
+
     };
     recognition.onerror = event => {
       console.log("Error occurred in recognition: " + event.error);

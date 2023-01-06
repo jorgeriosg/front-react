@@ -35,12 +35,12 @@ export default class InputEmoji extends Component {
     if (start === end) {
       input.value = startStr + emojiIcon + endStr;
       input_icon.value = startStr + emojiIcon + endStr;
-      console.log(input.value);
+    
     } else {
       const endStrB = value.substring(end, value.length);
       input.value = startStr + emojiIcon + endStrB;
       input_icon.value = startStr + emojiIcon + endStr;
-      console.log(input.value);
+    
     }
     if(!inputStates.get("openEmoji")){
       closeEmoji();
