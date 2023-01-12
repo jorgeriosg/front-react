@@ -530,9 +530,9 @@ function updateConversationError(data) {
     conv.enabled = true;
     conv.from = "from";
     
-    // if (data.exitoFormulario) {
-    //     conv.exito_formulario = data.exitoFormulario;
-    // }
+    if (data.error_formulario) {
+        conv.error_formulario = data.error_formulario;
+    }
     return { type: "PUSH_CONVERSATIONS_ERROR", data: conv };
 }
 
@@ -602,7 +602,7 @@ export function updateConversation(data) {
 
             });
 
-        //Respuesta
+        
         // const msg = parseInt(data.msg[0]);
         // setTimeout(() => {
         //   const rand = Math.floor(Math.random() * (6 - 1 + 1) + 1);
@@ -1602,8 +1602,10 @@ export function closeForm(data) {
 export function sendForm(data, url, general) {
     console.log("sendForm",data,url,general)
     data.general = general;
+    
     return function action(dispatch, getState) {
         dispatch({ type: "SEND_FORM_START" });
+        dispatch({ type: "ENABLED_FORM" });
         const request = axios({
             method: "POST",
             headers: {
@@ -1614,6 +1616,7 @@ export function sendForm(data, url, general) {
         });
         return request.then(
             response => {
+                  
                 if (response.status === 200 && response.data.estado.codigoEstado === 200) {
                     let item = {}
                     if (response.data.estado.glosaEstado == 'Formulario') {
@@ -1637,11 +1640,11 @@ export function sendForm(data, url, general) {
                         item.general = general;
                         item.token = response.data.respuesta.access_token
                     }
-                    
-                    
-                    //updateConversation(item);
-                    // messageResponse(dispatch, item);
-                    dispatch({ type: "DISABLED_FORM" });
+                    // dispatch({ type: "SEND_FORM_START" });
+                    // dispatch({ type: "SEND_FORM_END" });
+                    // dispatch({ type: "DISABLED_FORM" });
+                 
+
                     const request = axios({
                         method: "POST",
                         headers: {
@@ -1657,20 +1660,16 @@ export function sendForm(data, url, general) {
                     });
                     return request
                         .then(response => {
-                            console.log('RESPONSE MENSAJE 5::');
-                            console.log(response.data,"reponse5");
+                            console.log("response", response.data)
                             if (
                                 response.status === 200 &&
                                 response.data.estado.codigoEstado === 200
                             ) {
-                                dispatch({ type: "SEND_FORM_END" });
+                                // dispatch({ type: "SEND_FORM_END" });
                                 let item = response.data
                                 item.send = "form";
                                 item.enabled = true;
-                                // item.msg = [response.data.general.msg]
-                                // dispatch(setGeneral(data.general));
-                                // dispatch(pushConversation(data));
-                                //  updateConversation(item);
+                               
                                 console.log("Conversation updated w",item);
                                 // dispatch(setNodoId(item.msg[item.msg.length - 1]));
                                 messageResponse(dispatch, item);
@@ -1688,7 +1687,7 @@ export function sendForm(data, url, general) {
                             dispatch(updateConversationError(response.data.msg));
                         });
                 } else {
-                    dispatch(updateConversationError(response.statusText = 'error_formulario'));
+                    dispatch(updateConversationError(response.data.msg))
                     dispatch({ type: "DISABLED_FORM" });
                 }
             },
@@ -1701,6 +1700,8 @@ export function sendForm(data, url, general) {
                 );
             }
         );
+
+
 
         // dispatch(setGeneral(data.general));
         // dispatch(pushConversation(data));

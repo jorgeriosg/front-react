@@ -1113,34 +1113,19 @@ textarea {
       }
     }
 
-    // .ContainerForm {
-    //   box-sizing: border-box;
-    //   background: white;
-    //   border-radius: 0.9rem;
-    //   // position: fixed;
-    //   top: 30%;
-    //   // right: 2px;
-    //   z-index: 3;
-    //   opacity: 2;
-    //   border-top: 0.2rem solid var(--first);
-    //   box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
-    //   // margin-left: 0.8rem;
-   
-    //   width: 100%;
-
-
       .ContainerForm {
         box-sizing: border-box;
         background: white;
         border-radius: 0.9rem;
-        position: absolute;
+        // position: absolute;
+        // position: static;
         top: 1px;
         // right: 2px;
         z-index: 3;
         opacity: 2;
         border-top: 0.2rem solid var(--first);
         box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
-        // margin-left: 0.8rem;
+         margin-bottom: 35%;
      
         width: 100%;
 

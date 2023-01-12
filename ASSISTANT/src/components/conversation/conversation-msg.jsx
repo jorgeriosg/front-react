@@ -7,6 +7,7 @@ export default class ConversationMsg extends Component {
   render() {
     const { msgs, animation, send, avatar, mainCss} = this.props,
     to = send==="to"?true:false;
+  
    
     return msgs.map((map, i) => {
       if(msgs._tail.array[0] === "exito_formulario" || msgs._tail.array[0] === "error_formulario" || msgs._tail.array[0] === ''){
@@ -54,6 +55,7 @@ export default class ConversationMsg extends Component {
     });
   }
 }
+
 
 ConversationMsg.propTypes = {
   animation: PropTypes.string.isRequired,

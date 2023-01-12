@@ -297,17 +297,17 @@ export default class Formulario extends Component {
     }
   }
 
-  // formInput with msg inl
+ 
   
 
   content() {
-    const { formularioStates, form, mainCss, animation, disableForm } = this.props,
+    const { formularioStates, form, mainCss, animation, disableForm , general } = this.props,
     
       header = form.get("header"),
       bajada = form.get("bajada"),
       fields = form.get("fields"),
       icono = form.get("icon"),
-
+     
       error = formularioStates.get("error");
   
     return (

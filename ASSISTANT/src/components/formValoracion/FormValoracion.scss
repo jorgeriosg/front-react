@@ -25,29 +25,22 @@
     background: #fff;
     border-radius: 3.1rem;
     // position: relative;
-    position: absolute;
+    // position: absolute;
+    position: fixed;
     z-index: 2;
-    top: 0.5rem;
+    top: 16rem;
     // bottom: 20px;
     right: .1rem;
     box-shadow: 0 0 0.9rem 0 rgba(0, 0, 0, .2);
     // margin-left: .8rem;
-    width: 100%;
+    width: 91%;
+    right: 1.5rem;
     padding-bottom: 1.6rem;
 }
 .containerForm .expand {
     width: 80%;
-    height: 100%;
-    // position: absolute;
+    height: 70%;
     bottom: 10%;
-    // top: 0;
-    // left: 0;
-    // background: rgba(0, 0, 0, .5);
-    // z-index: 0;
-    // margin-top: 1.5rem;
-    // display: flex;
-    // flex-direction: row;
-    // width: 100%;
     padding: 0 2px;
     // display: inline-block;
     cursor: pointer;
@@ -85,7 +78,7 @@
         color: black;
     }
 }
-// expandir for
+
 .containerForm form {
     display: flex;
     flex-direction: column;
@@ -104,15 +97,8 @@
 }
 
 .containerForm form fieldset legend {
-    // color: #9a9a9f;
-    // font-weight: 700;
-    // text-transform: capitalize;
-    // font-size: 1.2rem;
-    // transition: all .3s ease;
     color: black;
     font-weight: 800;
-    // padding: 0 18px;
-    // display: block;
     text-transform: uppercase;
     text-align: center;
     font-size: 1.1rem;

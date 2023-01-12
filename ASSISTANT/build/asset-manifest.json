@@ -1,17 +1,17 @@
 {
-  "main.css": "/asistente/static/css/main.784dc62d.chunk.css",
-  "main.js": "/asistente/static/js/main.11eaa654.chunk.js",
-  "main.js.map": "/asistente/static/js/main.11eaa654.chunk.js.map",
+  "main.css": "/asistente/static/css/main.356bc135.chunk.css",
+  "main.js": "/asistente/static/js/main.0157d14e.chunk.js",
+  "main.js.map": "/asistente/static/js/main.0157d14e.chunk.js.map",
   "static/css/1.757fd5e9.chunk.css": "/asistente/static/css/1.757fd5e9.chunk.css",
   "static/js/1.38b249c5.chunk.js": "/asistente/static/js/1.38b249c5.chunk.js",
   "static/js/1.38b249c5.chunk.js.map": "/asistente/static/js/1.38b249c5.chunk.js.map",
   "runtime~main.js": "/asistente/static/js/runtime~main.57cfcef7.js",
   "runtime~main.js.map": "/asistente/static/js/runtime~main.57cfcef7.js.map",
-  "static/media/main.module.scss": "/asistente/static/media/icon-send-rounded.e39368ea.svg",
+  "static/media/main.module.scss": "/asistente/static/media/geomanist-medium.0af461c0.ttf",
   "static/media/logoH.svg": "/asistente/static/media/logoH.8c71aadb.svg",
-  "static/css/main.784dc62d.chunk.css.map": "/asistente/static/css/main.784dc62d.chunk.css.map",
+  "static/css/main.356bc135.chunk.css.map": "/asistente/static/css/main.356bc135.chunk.css.map",
   "static/css/1.757fd5e9.chunk.css.map": "/asistente/static/css/1.757fd5e9.chunk.css.map",
   "index.html": "/asistente/index.html",
-  "precache-manifest.eeec3512f5f55be6c72868d2b82f0298.js": "/asistente/precache-manifest.eeec3512f5f55be6c72868d2b82f0298.js",
+  "precache-manifest.a0e19770fa9afec2369ac532bbcb1acd.js": "/asistente/precache-manifest.a0e19770fa9afec2369ac532bbcb1acd.js",
   "service-worker.js": "/asistente/service-worker.js"
 }

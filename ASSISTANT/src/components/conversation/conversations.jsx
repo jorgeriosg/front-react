@@ -466,13 +466,8 @@ export default class Conversations extends Component {
           return cssFade
         }
       })
-    // let  cssFade = formularioStates.get("enabled") ? " main_Hide" : "ConversationHolder";
-    // let  cssFade = liftUp.get("enabled") 
-    // if(cssFade === "enabled"){
-    //    cssFade = mainCss.Hide
-    // }else{
-    //  cssFade = ""
-    // }
+  
+      
 
 
     return (
