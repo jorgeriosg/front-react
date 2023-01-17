@@ -1606,6 +1606,7 @@ export function sendForm(data, url, general) {
     return function action(dispatch, getState) {
         dispatch({ type: "SEND_FORM_START" });
         dispatch({ type: "ENABLED_FORM" });
+        //  dispatch({ type: "DISABLED_FORM" });
         const request = axios({
             method: "POST",
             headers: {
@@ -1641,7 +1642,7 @@ export function sendForm(data, url, general) {
                         item.token = response.data.respuesta.access_token
                     }
                     // dispatch({ type: "SEND_FORM_START" });
-                    // dispatch({ type: "SEND_FORM_END" });
+            
                     // dispatch({ type: "DISABLED_FORM" });
                  
 
@@ -1665,14 +1666,16 @@ export function sendForm(data, url, general) {
                                 response.status === 200 &&
                                 response.data.estado.codigoEstado === 200
                             ) {
-                                // dispatch({ type: "SEND_FORM_END" });
+                                
                                 let item = response.data
                                 item.send = "form";
                                 item.enabled = true;
                                
                                 console.log("Conversation updated w",item);
                                 // dispatch(setNodoId(item.msg[item.msg.length - 1]));
+                                dispatch({ type: "SEND_FORM_END" });
                                 messageResponse(dispatch, item);
+
                             } else if (response.data !== undefined) {
                                 // dispatch(updateConversationError(response.data));
                                 dispatch(updateConversationError(response.data.msg));
